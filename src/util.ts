@@ -55,6 +55,7 @@ const bodyParams = new Map([
   ['highTemperature', 'HITMP'],
   ['lowTemperature', 'LOTMP'],
   ['heaterId', 'HTSRC'],
+  ['heatActive', 'HTMODE'],
   ['heatMode', 'HTMOD'],
   ['heatMode', 'MODE'],
 ]) as ReadonlyMap<string, string>;

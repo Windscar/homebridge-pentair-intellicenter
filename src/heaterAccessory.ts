@@ -174,8 +174,12 @@ export class HeaterAccessory {
       this.platform.getConfig().temperatureUnits === TemperatureUnits.F
         ? this.platform.Characteristic.TemperatureDisplayUnits.FAHRENHEIT
         : this.platform.Characteristic.TemperatureDisplayUnits.CELSIUS);
-    this.service.updateCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState,
-      this.platform.Characteristic.CurrentHeatingCoolingState.HEAT);
+    const heating = this.body?.heaterId === this.heater.id
+      && this.body?.heatActive !== undefined
+      && String(this.body.heatActive) !== '0';
+    this.service.updateCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState, heating
+      ? this.platform.Characteristic.CurrentHeatingCoolingState.HEAT
+      : this.platform.Characteristic.CurrentHeatingCoolingState.OFF);
   }
 
   async setTargetTemperature(value: CharacteristicValue) {
