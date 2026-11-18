@@ -120,6 +120,8 @@ export type Body = {
   lowTemperature?: number;
   heaterId?: string;
   heatMode?: HeatMode;
+  // Body HTMODE: '0' when the body is not currently calling for heat.
+  heatActive?: string;
   circuit?: BaseCircuit;
 } & Circuit;
 

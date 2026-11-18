@@ -14,6 +14,7 @@ export const STATUS_KEY = 'STATUS';
 export const ACT_KEY = 'ACT';
 export const LAST_TEMP_KEY = 'LSTTMP';
 export const HEAT_SOURCE_KEY = 'HTSRC';
+export const HEAT_ACTIVE_KEY = 'HTMODE';
 export const HEATER_KEY = 'HEATER';
 export const MODE_KEY = 'MODE';
 export const LOW_TEMP_KEY = 'LOTMP';

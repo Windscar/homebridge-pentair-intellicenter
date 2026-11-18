@@ -34,18 +34,20 @@ export class TemperatureAccessory {
 
   async getCurrentTemperature(): Promise<CharacteristicValue> {
     const isFahrenheit = this.platform.getConfig().temperatureUnits === TemperatureUnits.F;
-    const temp = this.accessory.context.probe;
-    const celsius = isFahrenheit ? fahrenheitToCelsius(temp) : temp;
+    // Before the first pushed update, context.probe is unset; fall back to the value read at discovery.
+    const temp = Number(this.accessory.context.probe ?? this.accessory.context.sensor?.probe);
+    if (!Number.isFinite(temp)) {
+      return 0;
+    }
 
-    return celsius ?? 0;
+    return isFahrenheit ? fahrenheitToCelsius(temp) : temp;
   }
 
   updateTemperature(value: number) {
     const isFahrenheit = this.platform.getConfig().temperatureUnits === TemperatureUnits.F;
-    const temp = this.accessory.context.probe;
-    const celsius = isFahrenheit ? fahrenheitToCelsius(temp) : temp;
-
     this.accessory.context.probe = value;
+    const celsius = isFahrenheit ? fahrenheitToCelsius(value) : value;
+
     this.service.updateCharacteristic(this.platform.Characteristic.CurrentTemperature, celsius);
     this.platform.log.debug(`[${this.name}] Updated temperature: ${value}F or ${celsius}C`);
   }

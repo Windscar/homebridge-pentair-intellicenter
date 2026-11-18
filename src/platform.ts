@@ -30,6 +30,7 @@ import {mergeResponse, transformPanels, updateBody, updateCircuit, updatePump} f
 import {
   ACT_KEY,
   DISCOVER_COMMANDS,
+  HEAT_ACTIVE_KEY,
   HEAT_SOURCE_KEY,
   HEATER_KEY,
   LAST_TEMP_KEY,
@@ -396,7 +397,7 @@ export class PentairPlatform implements DynamicPlatformPlugin {
       for (const module of panel.modules) {
         for (const body of module.bodies) {
           this.discoverCircuit(panel, module, body, circuitIdPumpMap.get(body.circuit?.id as string));
-          this.subscribeForUpdates(body, [STATUS_KEY, LAST_TEMP_KEY, HEAT_SOURCE_KEY, HEATER_KEY, MODE_KEY]);
+          this.subscribeForUpdates(body, [STATUS_KEY, LAST_TEMP_KEY, HEAT_SOURCE_KEY, HEATER_KEY, MODE_KEY, HEAT_ACTIVE_KEY]);
           bodyIdMap.set(body.id, body);
         }
         for (const feature of module.features) {
